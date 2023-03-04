@@ -1,7 +1,6 @@
 import gleam/dynamic as d
 import gleeunit
 import gleeunit/should
-
 import gloml
 
 pub fn main() {
