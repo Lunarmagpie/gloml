@@ -3,7 +3,7 @@
 [![Package Version](https://img.shields.io/hexpm/v/gloml)](https://hex.pm/packages/gloml)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gloml/)
 
-A toml decoder for gleam. If you are using javascript, you must install the `fast-toml` module.
+A toml 0.4.0 decoder for gleam. If you are using javascript, you must install the `fast-toml` module.
 
 ```gleam
 import gleam/io
