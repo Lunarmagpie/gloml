@@ -12,21 +12,33 @@ pub fn decode(
   from toml_string: String,
   using decoder: d.Decoder(t),
 ) -> Result(t, DecodeError) {
-  use dynamic_value <- result.then(decode_inner(toml_string))
-  decoder(dynamic_value)
-  |> result.map_error(UnexpectedFormat)
+  decode_inner(toml_string, decoder)
 }
 
 if erlang {
-  external fn decode_inner(
-    toml_string: String,
-  ) -> Result(d.Dynamic, DecodeError) =
+  external fn decode_erl(toml_string: String) -> Result(d.Dynamic, DecodeError) =
     "Elixir.Toml" "decode"
+
+  pub fn decode_inner(
+    toml_string: String,
+    decoder: d.Decoder(t),
+  ) -> Result(t, DecodeError) {
+    use dynamic_value <- result.then(decode_erl(toml_string))
+    decoder(dynamic_value)
+    |> result.map_error(UnexpectedFormat)
+  }
 }
 
 if javascript {
-  external fn decode_inner(
-    toml_string: String,
-  ) -> Result(d.Dynamic, DecodeError) =
+  external fn decode_js(toml_string: String) -> Result(d.Dynamic, DecodeError) =
     "./toml.mjs" "parse_toml"
+
+  pub fn decode_inner(
+    toml_string: String,
+    decoder: d.Decoder(t),
+  ) -> Result(t, DecodeError) {
+    use dynamic_value <- result.then(decode_js(toml_string))
+    decoder(dynamic_value)
+    |> result.map_error(UnexpectedFormat)
+  }
 }
