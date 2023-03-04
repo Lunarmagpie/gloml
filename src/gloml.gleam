@@ -48,7 +48,7 @@ if javascript {
     toml_string: String,
     decoder: d.Decoder(t),
   ) -> Result(t, DecodeError) {
-    case decode_erl(toml_string) {
+    case decode_js(toml_string) {
       Ok(value) ->
         decoder(value)
         |> result.map_error(UnexpectedFormat)
