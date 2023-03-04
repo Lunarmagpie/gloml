@@ -5,9 +5,6 @@ licences = ["MIT"]
 repository = { type = "github", user = "lunarmagpie", repo = "gloml" }
 links = [{ title = "Website", href = "https://github.com/lunarmagpie.gloml" }]
 
-[javascript]
-runtime = "node"
-
 [dependencies]
 gleam_stdlib = "~> 0.26"
 toml = "~> 0.7"
