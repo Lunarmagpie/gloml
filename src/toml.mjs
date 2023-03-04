@@ -1,4 +1,4 @@
-import * as TOML from 'fast-toml'
+import * as TOML from 'toml'
 
 import {
     Error,
@@ -6,9 +6,11 @@ import {
 } from "./gleam.mjs";
 
 export function parse_toml(string) {
+    console.log("here")
     try {
         return new Ok(TOML.default.parse(string));
     } catch (e) {
+        console.log(e)
         return new Error(e.message)
     }
 }

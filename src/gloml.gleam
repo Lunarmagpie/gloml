@@ -2,6 +2,7 @@ import gleam/dynamic as d
 import gleam/result
 
 pub type DecodeError {
+  InvalidTomlError(String)
   UnexpectedFormat(List(d.DecodeError))
 }
 
@@ -16,29 +17,42 @@ pub fn decode(
 }
 
 if erlang {
-  external fn decode_erl(toml_string: String) -> Result(d.Dynamic, DecodeError) =
+  external type ElxInvalidTomlError
+
+  external fn decode_ex(
+    toml_string: String,
+  ) -> Result(d.Dynamic, ElxInvalidTomlError) =
     "Elixir.Toml" "decode"
+
+  external fn get_reason(err: ElxInvalidTomlError) -> String =
+    "Elixir.TomlFFI" "get_reason"
 
   pub fn decode_inner(
     toml_string: String,
     decoder: d.Decoder(t),
   ) -> Result(t, DecodeError) {
-    use dynamic_value <- result.then(decode_erl(toml_string))
-    decoder(dynamic_value)
-    |> result.map_error(UnexpectedFormat)
+    case decode_ex(toml_string) {
+      Ok(value) ->
+        decoder(value)
+        |> result.map_error(UnexpectedFormat)
+      Error(err) -> Error(InvalidTomlError(get_reason(err)))
+    }
   }
 }
 
 if javascript {
-  external fn decode_js(toml_string: String) -> Result(d.Dynamic, DecodeError) =
+  external fn decode_js(toml_string: String) -> Result(d.Dynamic, String) =
     "./toml.mjs" "parse_toml"
 
   pub fn decode_inner(
     toml_string: String,
     decoder: d.Decoder(t),
   ) -> Result(t, DecodeError) {
-    use dynamic_value <- result.then(decode_js(toml_string))
-    decoder(dynamic_value)
-    |> result.map_error(UnexpectedFormat)
+    case decode_erl(toml_string) {
+      Ok(value) ->
+        decoder(value)
+        |> result.map_error(UnexpectedFormat)
+      Error(err) -> Error(InvalidTomlError(err))
+    }
   }
 }
