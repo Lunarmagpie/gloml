@@ -1,19 +1,25 @@
-import gleam/dynamic as d
+import gleam/dynamic as dyn
 import gleam/result
 
 pub type DecodeError {
   InvalidTomlError(String)
-  UnexpectedFormat(List(d.DecodeError))
+  UnexpectedFormat(List(dyn.DecodeError))
 }
 
-/// Parse a toml file. This function returns `DecodeError` when there is an
-/// error.
-/// Note: timestamps are not supported.
+/// Parse a toml file with a decoder.
 pub fn decode(
   from toml_string: String,
-  using decoder: d.Decoder(t),
+  using decoder: dyn.Decoder(t),
 ) -> Result(t, DecodeError) {
-  decode_inner(toml_string, decoder)
+  use dyn <- result.then(decode_inner(toml_string))
+  dyn
+  |> decoder
+  |> result.map_error(UnexpectedFormat)
+}
+
+/// Parse a toml file into a gleam/dynamic.Dynamic.
+pub fn decode_dynamic(toml_string: String) {
+  decode_inner(toml_string)
 }
 
 if erlang {
@@ -21,38 +27,26 @@ if erlang {
 
   external fn decode_ex(
     toml_string: String,
-  ) -> Result(d.Dynamic, ElxInvalidTomlError) =
+  ) -> Result(dyn.Dynamic, ElxInvalidTomlError) =
     "Elixir.Toml" "decode"
 
   external fn get_reason(err: ElxInvalidTomlError) -> String =
     "Elixir.TomlFFI" "get_reason"
 
-  pub fn decode_inner(
-    toml_string: String,
-    decoder: d.Decoder(t),
-  ) -> Result(t, DecodeError) {
+  pub fn decode_inner(toml_string: String) -> Result(dyn.Dynamic, DecodeError) {
     case decode_ex(toml_string) {
-      Ok(value) ->
-        decoder(value)
-        |> result.map_error(UnexpectedFormat)
+      Ok(value) -> Ok(value)
       Error(err) -> Error(InvalidTomlError(get_reason(err)))
     }
   }
 }
 
 if javascript {
-  external fn decode_js(toml_string: String) -> Result(d.Dynamic, String) =
+  external fn decode_js(toml_string: String) -> Result(dyn.Dynamic, String) =
     "./toml.mjs" "parse_toml"
 
-  pub fn decode_inner(
-    toml_string: String,
-    decoder: d.Decoder(t),
-  ) -> Result(t, DecodeError) {
-    case decode_js(toml_string) {
-      Ok(value) ->
-        decoder(value)
-        |> result.map_error(UnexpectedFormat)
-      Error(err) -> Error(InvalidTomlError(err))
-    }
+  pub fn decode_inner(toml_string: String) -> Result(dyn.Dynamic, DecodeError) {
+    decode_js(toml_string)
+    |> result.map_error(InvalidTomlError)
   }
 }
