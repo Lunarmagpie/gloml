@@ -1,5 +1,5 @@
 name = "gloml"
-version = "0.1.0"
+version = "0.1.0-b1"
 description = "A gleam library for parsing toml."
 licences = ["MIT"]
 repository = { type = "github", user = "lunarmagpie", repo = "gloml" }
@@ -11,3 +11,6 @@ toml = "~> 0.7"
 
 [dev-dependencies]
 gleeunit = "~> 0.10"
+
+[javascript.deno]
+allow_read = ["gleam.toml", "test"]
