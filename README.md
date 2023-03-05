@@ -23,7 +23,7 @@ version = \"1.2.3\"
 ## Quick start
 
 ```sh
-cd priv; npm install # install dependencies for js
+cd priv; npm install; cd .. # install dependencies for js
 gleam test  # Run the tests
 ```
 
