@@ -3,7 +3,7 @@
 [![Package Version](https://img.shields.io/hexpm/v/gloml)](https://hex.pm/packages/gloml)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gloml/)
 
-A toml parsing library for gleam ✨ `gloml` supports all `gleam` targets and runtimes. 
+A toml parsing library for gleam ✨ `gloml` supports all `gleam` targets and runtimes.
 
 *Timestamps are not currently supported.*
 
