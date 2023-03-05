@@ -8,7 +8,8 @@ pub type DecodeError {
 
 /// Parse a toml file with a decoder.
 ///
-///pub fn decode_toml() {
+/// ```gleam
+/// pub fn decode_toml() {
 ///   let version =
 ///     gloml.decode("
 ///   [my-project]
@@ -18,6 +19,7 @@ pub type DecodeError {
 ///   )
 ///   should.equal(version, Ok("1.2.3"))
 /// }
+/// ```
 ///
 pub fn decode(
   from toml_string: String,
@@ -31,6 +33,7 @@ pub fn decode(
 
 /// Parse a toml file into a `gleam/dynamic.Dynamic`.
 ///
+/// ```gleam
 /// pub fn decode_toml() {
 ///   let dynamic =
 ///     gloml.decode("
@@ -38,6 +41,7 @@ pub fn decode(
 ///   version = \"1.2.3\"
 ///   ")
 /// }
+/// ```
 ///
 pub fn decode_dynamic(toml_string: String) {
   decode_inner(toml_string)
