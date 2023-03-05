@@ -25,7 +25,7 @@ jobs:
           cd ..
 
       - name: Publish
-        run: gleam publish
+        run: gleam publish -y
         env:
           HEXPM_USER: "{{ secrets.HEXPM_USER }}"
           HEXPM_PASS: "{{ secrets.HEXPM_PASS }}"
