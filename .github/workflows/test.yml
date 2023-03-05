@@ -31,6 +31,7 @@ jobs:
           otp-version: "25.2"
           gleam-version: "0.27.0"
           rebar3-version: "3"
+          elixir-version: "1.14.2"
 
       - uses: actions/setup-node@v3
         with:
@@ -53,6 +54,7 @@ jobs:
           otp-version: "25.2"
           gleam-version: "0.27.0"
           rebar3-version: "3"
+          elixir-version: "1.14.2"
 
       - uses: denoland/setup-deno@v1
         with:
