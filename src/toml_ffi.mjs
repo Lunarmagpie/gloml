@@ -1,4 +1,4 @@
-import * as TOML from "./priv/node_modules/toml/index.js";
+import * as TOML from "./priv/node_modules/@ltd/j-toml/index.mjs";
 
 import {
     Error,
@@ -7,7 +7,7 @@ import {
 
 export function parse_toml(string) {
     try {
-        return new Ok(TOML.default.parse(string));
+        return new Ok(TOML.parse(string));
     } catch (e) {
         return new Error(e.message)
     }
