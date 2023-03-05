@@ -3,7 +3,9 @@
 [![Package Version](https://img.shields.io/hexpm/v/gloml)](https://hex.pm/packages/gloml)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gloml/)
 
-A toml 0.4.0 decoder for gleam. If you are using javascript, you must install the `fast-toml` module.
+A toml parsing library for gleam.
+
+*timestamps are not currently supported.*
 
 ```gleam
 import gleam/io
@@ -20,14 +22,11 @@ version = \"1.2.3\"
 }
 ```
 
-
-
 ## Quick start
 
 ```sh
-gleam run   # Run the project
+cd priv; npm install; cd .. # install dependencies for js
 gleam test  # Run the tests
-gleam shell # Run an Erlang shell
 ```
 
 ## Installation
