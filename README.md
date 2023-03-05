@@ -25,9 +25,8 @@ version = \"1.2.3\"
 ## Quick start
 
 ```sh
-gleam run   # Run the project
+cd priv; npm install # install dependencies for js
 gleam test  # Run the tests
-gleam shell # Run an Erlang shell
 ```
 
 ## Installation
