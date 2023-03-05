@@ -8,6 +8,6 @@ packages = [
 ]
 
 [requirements]
-gleam_stdlib = "~> 0.25"
+gleam_stdlib = "~> 0.27"
 gleeunit = "~> 0.10"
 toml = "~> 0.7"
