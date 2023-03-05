@@ -43,7 +43,7 @@ if erlang {
 
 if javascript {
   external fn decode_js(toml_string: String) -> Result(dyn.Dynamic, String) =
-    "./toml.mjs" "parse_toml"
+    "../toml_ffi.mjs" "EntryPoint"
 
   pub fn decode_inner(toml_string: String) -> Result(dyn.Dynamic, DecodeError) {
     decode_js(toml_string)

@@ -10,7 +10,7 @@ pub fn main() {
 pub fn decode_works_test() {
   gloml.decode(
     "
-[my-project
+[my-project]
 version = \"1.2.3\"
 ",
     d.field("my-project", d.field("version", d.string)),
