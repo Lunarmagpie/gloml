@@ -1,4 +1,4 @@
-import * as TOML from "../priv/node_modules/toml/index.mjs";
+import * as TOML from "./priv/node_modules/toml/index.js";
 
 import {
     Error,
