@@ -6,7 +6,7 @@ repository = { type = "github", user = "lunarmagpie", repo = "gloml" }
 links = [{ title = "Website", href = "https://github.com/lunarmagpie.gloml" }]
 
 [dependencies]
-gleam_stdlib = "~> 0.25"
+gleam_stdlib = "~> 0.27"
 toml = "~> 0.7"
 
 [dev-dependencies]
