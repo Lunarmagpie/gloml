@@ -35,7 +35,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm install fast-toml
+      - run: |
+          cd priv
+          npm install
+          cd ..
 
       - run: gleam format --check src test
       - run: gleam deps download
@@ -54,6 +57,10 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - run: |
+          cd priv
+          npm install
+          cd ..
 
       - run: gleam format --check src test
       - run: gleam deps download
