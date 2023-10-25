@@ -1,5 +1,5 @@
 name = "gloml"
-version = "0.1.2"
+version = "0.1.3"
 description = "A gleam library for parsing toml."
 licences = ["MIT"]
 repository = { type = "github", user = "lunarmagpie", repo = "gloml" }
